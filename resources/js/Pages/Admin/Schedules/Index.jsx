@@ -1,4 +1,5 @@
 import DataTable from '@/Components/DataTable';
+import AdminPageHeader from '@/Components/AdminPageHeader';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
 
@@ -44,7 +45,13 @@ export default function SchedulesIndex({ schedules, rooms, days }) {
 
     return (
         <AuthenticatedLayout
-            header={<h1 className="text-xl font-semibold text-gray-800">Jadwal Kuliah</h1>}
+            header={
+                <AdminPageHeader
+                    section="Perencanaan akademik"
+                    title="Jadwal Kuliah"
+                    description="Susun jadwal kuliah tetap dan pastikan tidak ada bentrok penggunaan ruangan."
+                />
+            }
         >
             <Head title="Jadwal Kuliah" />
             <div className="py-8">

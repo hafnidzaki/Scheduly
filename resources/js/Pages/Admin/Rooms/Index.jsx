@@ -1,4 +1,5 @@
 import DataTable from '@/Components/DataTable';
+import AdminPageHeader from '@/Components/AdminPageHeader';
 import StatusBadge from '@/Components/StatusBadge';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
@@ -79,7 +80,13 @@ export default function RoomsIndex({ rooms }) {
 
     return (
         <AuthenticatedLayout
-            header={<h1 className="text-xl font-semibold text-gray-800">Kelola Ruangan</h1>}
+            header={
+                <AdminPageHeader
+                    section="Manajemen fasilitas"
+                    title="Kelola Ruangan"
+                    description="Atur data, kapasitas, dan ketersediaan ruang kuliah dalam satu tempat."
+                />
+            }
         >
             <Head title="Kelola Ruangan" />
             <div className="py-8">

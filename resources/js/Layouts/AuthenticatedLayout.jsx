@@ -12,18 +12,24 @@ export default function AuthenticatedLayout({ header, children }) {
         useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="border-b border-gray-100 bg-white">
+        <div className="min-h-screen bg-slate-50">
+            <nav className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo className="block h-9 w-auto fill-current text-indigo-700" />
+                                </Link>
+                                <Link href={route('dashboard')} className="ms-3 hidden leading-tight sm:block">
+                                    <span className="block text-sm font-bold tracking-wide text-slate-800">SCHEDULY</span>
+                                    <span className="block text-[10px] font-medium uppercase tracking-[0.18em] text-slate-400">
+                                        {user.role === 'admin' ? 'Admin workspace' : 'Campus spaces'}
+                                    </span>
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-6 sm:-my-px sm:ms-8 sm:flex">
                                 <NavLink
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
@@ -32,13 +38,13 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </NavLink>
                                 {user.role === 'admin' && (
                                     <>
-                                        <NavLink href={route('admin.rooms.index')} active={route().current('admin.rooms.*')}>
+                                        <NavLink href={route('admin.rooms.index')} active={route().current('admin.rooms.*')} className="rounded-t-md">
                                             Ruangan
                                         </NavLink>
-                                        <NavLink href={route('admin.schedules.index')} active={route().current('admin.schedules.*')}>
+                                        <NavLink href={route('admin.schedules.index')} active={route().current('admin.schedules.*')} className="rounded-t-md">
                                             Jadwal
                                         </NavLink>
-                                        <NavLink href={route('admin.bookings.index')} active={route().current('admin.bookings.*')}>
+                                        <NavLink href={route('admin.bookings.index')} active={route().current('admin.bookings.*')} className="rounded-t-md">
                                             Peminjaman
                                         </NavLink>
                                     </>
@@ -189,7 +195,7 @@ export default function AuthenticatedLayout({ header, children }) {
             </nav>
 
             {header && (
-                <header className="bg-white shadow">
+                <header className="bg-slate-50 pt-6 sm:pt-8">
                     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                         {header}
                     </div>
