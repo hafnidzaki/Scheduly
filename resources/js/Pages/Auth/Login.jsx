@@ -1,3 +1,4 @@
+// Scheduly Auth Page - Login Component
 import React, { useState } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
