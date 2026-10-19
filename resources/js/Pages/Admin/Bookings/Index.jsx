@@ -1,4 +1,5 @@
 import DataTable from '@/Components/DataTable';
+import AdminPageHeader from '@/Components/AdminPageHeader';
 import StatusBadge from '@/Components/StatusBadge';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router, usePage } from '@inertiajs/react';
@@ -64,7 +65,13 @@ export default function BookingsIndex({ bookings }) {
 
     return (
         <AuthenticatedLayout
-            header={<h1 className="text-xl font-semibold text-gray-800">Pengawasan Peminjaman</h1>}
+            header={
+                <AdminPageHeader
+                    section="Operasional"
+                    title="Pengawasan Peminjaman"
+                    description="Pantau aktivitas peminjaman ruangan dan tangani pembatalan darurat."
+                />
+            }
         >
             <Head title="Pengawasan Peminjaman" />
             <div className="py-8">
