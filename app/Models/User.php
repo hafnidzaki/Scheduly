@@ -19,11 +19,11 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
+    'name',
+    'email',
+    'password',
+    'role',
+];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -35,10 +35,16 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Get the attributes that shou
+     *ld be cast.
      *
      * @return array<string, string>
      */
+
+     public function bookings(): \Illuminate\Database\Eloquent\Relations\HasMany
+{
+    return $this->hasMany(Booking::class);
+}
     protected function casts(): array
     {
         return [
