@@ -1063,16 +1063,16 @@
         },
         {
             "name": "inertiajs/inertia-laravel",
-            "version": "v2.0.27",
+            "version": "v2.0.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/inertiajs/inertia-laravel.git",
-                "reference": "ae9f1f7e0692e1b8226b27f007f873ad5e15ecec"
+                "reference": "ca0d670779dc61437026e9ec7fd3b50c99625ac2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/inertiajs/inertia-laravel/zipball/ae9f1f7e0692e1b8226b27f007f873ad5e15ecec",
-                "reference": "ae9f1f7e0692e1b8226b27f007f873ad5e15ecec",
+                "url": "https://api.github.com/repos/inertiajs/inertia-laravel/zipball/ca0d670779dc61437026e9ec7fd3b50c99625ac2",
+                "reference": "ca0d670779dc61437026e9ec7fd3b50c99625ac2",
                 "shasum": ""
             },
             "require": {
@@ -1129,9 +1129,9 @@
             ],
             "support": {
                 "issues": "https://github.com/inertiajs/inertia-laravel/issues",
-                "source": "https://github.com/inertiajs/inertia-laravel/tree/v2.0.27"
+                "source": "https://github.com/inertiajs/inertia-laravel/tree/v2.0.28"
             },
-            "time": "2026-09-11T15:34:55+00:00"
+            "time": "2026-09-25T09:18:50+00:00"
         },
         {
             "name": "laravel/framework",
@@ -5950,16 +5950,16 @@
         },
         {
             "name": "tightenco/ziggy",
-            "version": "v2.6.4",
+            "version": "v2.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/ziggy.git",
-                "reference": "c32a3eaad1574df8b953281680bba89bd3217dc2"
+                "reference": "d250c158c75bb10d33e6ebc9b67d65872593ae1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/ziggy/zipball/c32a3eaad1574df8b953281680bba89bd3217dc2",
-                "reference": "c32a3eaad1574df8b953281680bba89bd3217dc2",
+                "url": "https://api.github.com/repos/tighten/ziggy/zipball/d250c158c75bb10d33e6ebc9b67d65872593ae1a",
+                "reference": "d250c158c75bb10d33e6ebc9b67d65872593ae1a",
                 "shasum": ""
             },
             "require": {
@@ -6014,9 +6014,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/ziggy/issues",
-                "source": "https://github.com/tighten/ziggy/tree/v2.6.4"
+                "source": "https://github.com/tighten/ziggy/tree/v2.6.5"
             },
-            "time": "2026-08-18T17:28:45+00:00"
+            "time": "2026-10-10T22:16:55+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

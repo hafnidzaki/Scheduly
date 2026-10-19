@@ -23,12 +23,41 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </Link>
                             </div>
 
+                            {/* Menu Navigasi Desktop */}
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
                                 >
                                     Dashboard
+                                </NavLink>
+
+                                {/* Tampil KHUSUS Admin */}
+                                {user.role === 'admin' && (
+                                    <NavLink
+                                        href={route('rooms.index')}
+                                        active={route().current('rooms.*')}
+                                    >
+                                        Manajemen Ruangan
+                                    </NavLink>
+                                )}
+
+                                {/* Tampil KHUSUS User (Mahasiswa/Dosen) */}
+                                {user.role === 'user' && (
+                                    <NavLink
+                                        href={route('bookings.create')}
+                                        active={route().current('bookings.create')}
+                                    >
+                                        Pinjam Ruangan
+                                    </NavLink>
+                                )}
+
+                                {/* Rute Bersama (Admin & User) */}
+                                <NavLink
+                                    href={route('bookings.index')}
+                                    active={route().current('bookings.index')}
+                                >
+                                    {user.role === 'admin' ? 'Monitoring Booking' : 'Riwayat Peminjaman'}
                                 </NavLink>
                             </div>
                         </div>
@@ -121,6 +150,7 @@ export default function AuthenticatedLayout({ header, children }) {
                     </div>
                 </div>
 
+                {/* Menu Navigasi Mobile */}
                 <div
                     className={
                         (showingNavigationDropdown ? 'block' : 'hidden') +
@@ -133,6 +163,34 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('dashboard')}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+
+                        {/* Tampil KHUSUS Admin di Mobile */}
+                        {user.role === 'admin' && (
+                            <ResponsiveNavLink
+                                href={route('rooms.index')}
+                                active={route().current('rooms.*')}
+                            >
+                                Manajemen Ruangan
+                            </ResponsiveNavLink>
+                        )}
+
+                        {/* Tampil KHUSUS User di Mobile */}
+                        {user.role === 'user' && (
+                            <ResponsiveNavLink
+                                href={route('bookings.create')}
+                                active={route().current('bookings.create')}
+                            >
+                                Pinjam Ruangan
+                            </ResponsiveNavLink>
+                        )}
+
+                        {/* Rute Bersama di Mobile */}
+                        <ResponsiveNavLink
+                            href={route('bookings.index')}
+                            active={route().current('bookings.index')}
+                        >
+                            {user.role === 'admin' ? 'Monitoring Booking' : 'Riwayat Peminjaman'}
                         </ResponsiveNavLink>
                     </div>
 
