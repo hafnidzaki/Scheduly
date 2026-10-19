@@ -37,4 +37,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::patch('/bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
 });
 
+<<<<<<< HEAD
 require __DIR__.'/auth.php';
+=======
+require __DIR__.'/auth.php';
+>>>>>>> origin/main
