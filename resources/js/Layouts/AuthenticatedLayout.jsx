@@ -30,6 +30,19 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                {user.role === 'admin' && (
+                                    <>
+                                        <NavLink href={route('admin.rooms.index')} active={route().current('admin.rooms.*')}>
+                                            Ruangan
+                                        </NavLink>
+                                        <NavLink href={route('admin.schedules.index')} active={route().current('admin.schedules.*')}>
+                                            Jadwal
+                                        </NavLink>
+                                        <NavLink href={route('admin.bookings.index')} active={route().current('admin.bookings.*')}>
+                                            Peminjaman
+                                        </NavLink>
+                                    </>
+                                )}
                             </div>
                         </div>
 
@@ -134,6 +147,19 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        {user.role === 'admin' && (
+                            <>
+                                <ResponsiveNavLink href={route('admin.rooms.index')} active={route().current('admin.rooms.*')}>
+                                    Ruangan
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('admin.schedules.index')} active={route().current('admin.schedules.*')}>
+                                    Jadwal
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('admin.bookings.index')} active={route().current('admin.bookings.*')}>
+                                    Peminjaman
+                                </ResponsiveNavLink>
+                            </>
+                        )}
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
