@@ -4,23 +4,25 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\ScheduleController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\UserBookingController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 // Langsung redirect ke halaman login saat buka URL utama
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [UserBookingController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Route user biasa
+    Route::post('/bookings', [UserBookingController::class, 'store'])->name('bookings.store');
+    Route::get('/riwayat', [UserBookingController::class, 'history'])->name('bookings.history');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -37,8 +39,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::patch('/bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
 });
 
-<<<<<<< HEAD
 require __DIR__.'/auth.php';
-=======
-require __DIR__.'/auth.php';
->>>>>>> origin/main

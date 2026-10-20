@@ -1,75 +1,59 @@
 import React from 'react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import UserSidebarLayout from '@/Layouts/UserSidebarLayout';
 import StatusBadge from '@/Components/StatusBadge';
 import { Head } from '@inertiajs/react';
 
-export default function MyBookings({ auth }) {
-    // Dummy Data Riwayat Peminjaman User
-    const myBookings = [
-        {
-            id: 1,
-            room_name: 'H5',
-            purpose: 'Responsi Praktikum Web Framework',
-            booking_date: '2026-10-25',
-            start_time: '08:00',
-            end_time: '10:00',
-            status: 'approved',
-        },
-        {
-            id: 2,
-            room_name: 'H17',
-            purpose: 'Diskusi Kelompok Project Scheduly',
-            booking_date: '2026-10-28',
-            start_time: '13:00',
-            end_time: '15:00',
-            status: 'pending',
-        },
-    ];
+const hhmm = (t) => (t ? String(t).slice(0, 5) : '');
+const tanggal = (d) =>
+    new Date(String(d).slice(0, 10) + 'T00:00:00').toLocaleDateString('id-ID', {
+        day: 'numeric', month: 'long', year: 'numeric',
+    });
 
+export default function MyBookings({ bookings = [] }) {
     return (
-        <AuthenticatedLayout
-            user={auth?.user}
-            header={<h2 className="font-semibold text-xl text-slate-800 leading-tight">Riwayat Peminjaman Saya</h2>}
-        >
+        <UserSidebarLayout>
             <Head title="Riwayat Peminjaman" />
 
-            <div className="py-8 bg-slate-50 min-h-screen">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
-                        <div className="p-6 border-b border-slate-100">
-                            <h3 className="text-lg font-bold text-slate-800">Daftar Pengajuan Ruangan</h3>
-                            <p className="text-sm text-slate-500">Pantau status persetujuan peminjaman ruang kelas Anda secara rinci.</p>
-                        </div>
+            <div className="space-y-6 font-sans">
+                <div className="border-b border-slate-200/80 pb-4">
+                    <h1 className="text-xl font-bold tracking-tight text-slate-900">Riwayat Peminjaman Saya</h1>
+                    <p className="mt-0.5 text-xs text-slate-500">Pantau status peminjaman ruang kelas Anda.</p>
+                </div>
 
+                <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
+                    {bookings.length === 0 ? (
+                        <div className="p-12 text-center">
+                            <p className="text-sm font-semibold text-slate-700">Belum ada peminjaman</p>
+                            <p className="mt-1 text-xs text-slate-500">Cari ruangan kosong di menu "Cari Ruangan" lalu ajukan peminjaman.</p>
+                        </div>
+                    ) : (
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-sm text-slate-600">
-                                <thead className="bg-slate-50 text-slate-700 uppercase text-xs font-semibold border-b border-slate-100">
+                                <thead className="border-b border-slate-100 bg-slate-50 text-xs font-semibold uppercase text-slate-700">
                                     <tr>
                                         <th className="px-6 py-4">Ruangan</th>
-                                        <th className="px-6 py-4">Tujuan / Alasan</th>
+                                        <th className="px-6 py-4">Tujuan</th>
                                         <th className="px-6 py-4">Tanggal</th>
                                         <th className="px-6 py-4">Jam</th>
                                         <th className="px-6 py-4">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
-                                    {myBookings.map((item) => (
-                                        <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
-                                            <td className="px-6 py-4 font-bold text-slate-800">{item.room_name}</td>
-                                            <td className="px-6 py-4 max-w-xs truncate">{item.purpose}</td>
-                                            <td className="px-6 py-4">{item.booking_date}</td>
-                                            <td className="px-6 py-4">{item.start_time} - {item.end_time} WIB</td>
-                                            <td className="px-6 py-4">
-                                                <StatusBadge status={item.status} />
-                                            </td>
+                                    {bookings.map((item) => (
+                                        <tr key={item.id} className="transition-colors hover:bg-slate-50/80">
+                                            <td className="px-6 py-4 font-bold text-slate-800">{item.room?.name}</td>
+                                            <td className="max-w-xs truncate px-6 py-4" title={item.purpose}>{item.purpose}</td>
+                                            <td className="px-6 py-4">{tanggal(item.booking_date)}</td>
+                                            <td className="px-6 py-4">{hhmm(item.start_time)} - {hhmm(item.end_time)} WIB</td>
+                                            <td className="px-6 py-4"><StatusBadge status={item.status} /></td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </UserSidebarLayout>
     );
 }
