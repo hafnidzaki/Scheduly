@@ -7,6 +7,7 @@ use App\Models\Room;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class UserBookingController extends Controller
@@ -71,6 +72,8 @@ class UserBookingController extends Controller
 
     public function store(Request $request)
     {
+        Gate::authorize('create', Booking::class);
+
         $data = $request->validate([
             'room_id'      => 'required|exists:rooms,id',
             'booking_date' => 'required|date|after_or_equal:today',

@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -19,11 +20,12 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-    'name',
-    'email',
-    'password',
-    'role',
-];
+        'name',
+        'email',
+        'password',
+        'role',
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -35,21 +37,39 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that shou
-     *ld be cast.
+     * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
-
-     public function bookings(): \Illuminate\Database\Eloquent\Relations\HasMany
-{
-    return $this->hasMany(Booking::class);
-}
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Check if user is an admin.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Check if user is a standard user (mahasiswa/dosen).
+     */
+    public function isUser(): bool
+    {
+        return $this->role === 'user';
+    }
+
+    /**
+     * Relasi ke transaksi booking milik user ini.
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
     }
 }

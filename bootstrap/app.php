@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'peran' => \App\Http\Middleware\PastikanPeran::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
