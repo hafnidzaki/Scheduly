@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Room extends Model
 {
@@ -15,10 +16,12 @@ class Room extends Model
         'status',
     ];
 
-    /**
-     * Relasi ke daftar peminjaman di ruangan ini.
-     */
-    public function bookings()
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
+    }
+
+    public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
     }

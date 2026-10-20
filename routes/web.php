@@ -1,25 +1,21 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\BookingController;
-// use App\Http\Controllers\RoomController; // Buka nanti jika controller sudah dibuat
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
+use App\Http\Controllers\Admin\RoomController;
+use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\UserBookingController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
+// Langsung redirect ke halaman login saat buka URL utama
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect()->route('login');
 });
 
-Route::get('/dashboard', [BookingController::class, 'dashboard'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('/dashboard', [UserBookingController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
+// Profil Pengguna (bisa diakses semua peran yang login)
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -27,29 +23,28 @@ Route::middleware('auth')->group(function () {
 });
 
 // =========================================================================
-// KELOMPOK RUTE BERDASARKAN PERAN / HAK AKSES
+// KELOMPOK RUTE BERDASARKAN PERAN / HAK AKSES (Otorisasi: PastikanPeran)
 // =========================================================================
 
-// 1. Rute KHUSUS ADMIN (Manajemen Ruangan)
-Route::middleware(['auth', 'peran:admin'])->group(function () {
-    Route::get('/rooms/manage', function () {
-        return Inertia::render('Dashboard');
-    })->name('rooms.index');
-    // Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
-});
-
-// 2. Rute KHUSUS USER BIASA (Mahasiswa/Dosen)
+// 1. Rute KHUSUS USER BIASA (Mahasiswa / Dosen)
 Route::middleware(['auth', 'peran:user'])->group(function () {
-    Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+    Route::post('/bookings', [UserBookingController::class, 'store'])->name('bookings.store');
+    Route::get('/riwayat', [UserBookingController::class, 'history'])->name('bookings.history');
 });
 
-// 3. Rute BERSAMA (Admin & User bisa akses, tapi tindakan dibatasi oleh Policy di Controller)
-Route::middleware(['auth'])->group(function () {
-    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
-    Route::get('/bookings/history', [BookingController::class, 'history'])->name('bookings.history');
-    Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
-    Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
-    Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+// 2. Rute KHUSUS ADMIN (Manajemen Ruangan, Jadwal, & Monitoring Peminjaman)
+Route::middleware(['auth', 'peran:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
+    Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
+    Route::put('/rooms/{room}', [RoomController::class, 'update'])->name('rooms.update');
+    Route::patch('/rooms/{room}/status', [RoomController::class, 'updateStatus'])->name('rooms.status');
+
+    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+    Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules.store');
+    Route::delete('/schedules/{schedule}', [ScheduleController::class, 'destroy'])->name('schedules.destroy');
+
+    Route::get('/bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
+    Route::patch('/bookings/{booking}/cancel', [AdminBookingController::class, 'cancel'])->name('bookings.cancel');
 });
 
 require __DIR__.'/auth.php';
