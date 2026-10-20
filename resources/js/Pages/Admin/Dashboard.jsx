@@ -1,4 +1,5 @@
-import AdminSidebarLayout from '@/Layouts/AdminSidebarLayout';
+import AdminPageHeader from '@/Components/AdminPageHeader';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
 export default function Dashboard({ stats = {} }) {
@@ -10,22 +11,26 @@ export default function Dashboard({ stats = {} }) {
     ];
 
     return (
-        <AdminSidebarLayout>
+        <AuthenticatedLayout
+            header={
+                <AdminPageHeader
+                    section="Ringkasan"
+                    title="Dashboard Admin"
+                    description="Ringkasan penggunaan ruang kelas."
+                />
+            }
+        >
             <Head title="Dashboard Admin" />
-            <div className="mx-auto max-w-7xl space-y-6 px-4 py-8 font-sans sm:px-8">
-                <div className="border-b border-slate-200/80 pb-4">
-                    <h1 className="text-2xl font-bold tracking-tight text-slate-900">Dashboard Admin</h1>
-                    <p className="mt-1 text-sm text-slate-500">Ringkasan penggunaan ruang kelas.</p>
-                </div>
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="py-8">
+                <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-4 sm:grid-cols-2 sm:px-6 lg:px-8 xl:grid-cols-4">
                     {cards.map((c) => (
-                        <div key={c.label} className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
-                            <p className="text-xs font-bold uppercase tracking-wider text-slate-500">{c.label}</p>
-                            <p className="mt-2 text-3xl font-bold text-slate-900">{c.value}</p>
+                        <div key={c.label} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                            <p className="text-xs font-bold uppercase tracking-wider text-gray-500">{c.label}</p>
+                            <p className="mt-2 text-3xl font-bold text-gray-900">{c.value}</p>
                         </div>
                     ))}
                 </div>
             </div>
-        </AdminSidebarLayout>
+        </AuthenticatedLayout>
     );
 }

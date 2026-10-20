@@ -1,3 +1,4 @@
+import AdminPageHeader from '@/Components/AdminPageHeader';
 import RoleLayout from '@/Layouts/RoleLayout';
 import { Head, usePage } from '@inertiajs/react';
 import DeleteUserForm from './Partials/DeleteUserForm';
@@ -11,32 +12,35 @@ export default function Edit({ mustVerifyEmail, status }) {
     return (
         <RoleLayout
             header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Profile
-                </h2>
+                isAdmin ? (
+                    <AdminPageHeader
+                        section="Pengaturan akun"
+                        title="Profil"
+                        description="Kelola informasi akun, kata sandi, dan pengaturan keamanan."
+                    />
+                ) : null
             }
         >
             <Head title="Profile" />
 
             {isAdmin ? (
-                // Tampilan admin: sama seperti aslinya
-                <div className="py-12">
-                    <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-                        <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                <div className="py-8">
+                    <div className="mx-auto max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
+                        <section className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6">
                             <UpdateProfileInformationForm
                                 mustVerifyEmail={mustVerifyEmail}
                                 status={status}
                                 className="max-w-xl"
                             />
-                        </div>
+                        </section>
 
-                        <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                        <section className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6">
                             <UpdatePasswordForm className="max-w-xl" />
-                        </div>
+                        </section>
 
-                        <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                        <section className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6">
                             <DeleteUserForm className="max-w-xl" />
-                        </div>
+                        </section>
                     </div>
                 </div>
             ) : (
