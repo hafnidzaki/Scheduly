@@ -34,6 +34,19 @@ class UserBookingController extends Controller
 
     public function dashboard(Request $request)
     {
+        // Cek jika role user adalah admin
+        if ($request->user()->role === 'admin') {
+            return Inertia::render('Admin/Dashboard', [
+                'stats' => [
+                    'rooms'     => Room::count(),
+                    'schedules' => Schedule::count(),
+                    'bookings'  => Booking::count(),
+                    'today'     => Booking::whereDate('booking_date', now()->toDateString())->where('status', '!=', 'cancelled')->count(),
+                ],
+            ]);
+        }
+
+        // Logika dashboard untuk user biasa
         $date  = $request->input('date', now()->toDateString());
         $start = $request->input('start_time', '08:00');
         $end   = $request->input('end_time', '10:00');

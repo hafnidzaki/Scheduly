@@ -4,10 +4,13 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import AdminSidebarLayout from '@/Layouts/AdminSidebarLayout';
 
-export default function AuthenticatedLayout({ header, children }) {
-    const user = usePage().props.auth.user;
+export default function AuthenticatedLayout({ children, header }) {
+    return <AdminSidebarLayout header={header}>{children}</AdminSidebarLayout>;
+}
 
+/*
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -205,4 +208,5 @@ export default function AuthenticatedLayout({ header, children }) {
             <main>{children}</main>
         </div>
     );
-}
+)
+*/

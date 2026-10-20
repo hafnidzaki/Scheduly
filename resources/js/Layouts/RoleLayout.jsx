@@ -1,12 +1,12 @@
 import { usePage } from '@inertiajs/react';
 import UserSidebarLayout from '@/Layouts/UserSidebarLayout';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import AdminSidebarLayout from '@/Layouts/AdminSidebarLayout';
 
-export default function RoleLayout({ children, ...props }) {
+export default function RoleLayout({ children, header }) {
     const { auth } = usePage().props;
 
     if (auth.user?.role === 'admin') {
-        return <AuthenticatedLayout user={auth.user} {...props}>{children}</AuthenticatedLayout>;
+        return <AdminSidebarLayout header={header}>{children}</AdminSidebarLayout>;
     }
 
     return <UserSidebarLayout>{children}</UserSidebarLayout>;
