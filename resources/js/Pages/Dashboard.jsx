@@ -44,15 +44,29 @@ export default function Dashboard({ rooms = [], filters = {} }) {
             <Head title="Cari Ruangan" />
 
             <div className="space-y-6 font-sans">
-                {/* Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/80">
-                    <div>
-                        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Cari & Pinjam Ruang Kelas</h1>
-                        <p className="text-sm text-slate-500 mt-1">Pilih slot jadwal dan temukan ruangan yang sedang kosong.</p>
+                {/* --- HERO BANNER (DITAMBAHKAN) --- */}
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 p-8 text-white shadow-lg">
+                    {/* Aksen Lingkaran Transparan di Kanan */}
+                    <div className="absolute -right-10 -bottom-10 h-48 w-48 rounded-full border-[16px] border-white/10 pointer-events-none" />
+                    <div className="absolute -right-4 -bottom-4 h-32 w-32 rounded-full border-[12px] border-white/10 pointer-events-none" />
+
+                    <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold tracking-wider text-emerald-300 backdrop-blur-md uppercase mb-3">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                                Layanan Kampus
+                            </span>
+                            <h1 className="text-3xl font-bold tracking-tight text-white">
+                                Cari & Pinjam Ruang Kelas
+                            </h1>
+                            <p className="mt-2 text-sm text-indigo-100/90">
+                                Pilih slot jadwal dan temukan ruangan yang sedang kosong.
+                            </p>
+                        </div>
+                        <span className="self-start sm:self-auto text-xs font-semibold px-3.5 py-2 rounded-full bg-white/20 text-white backdrop-blur-md border border-white/20 shadow-sm">
+                            ● {availableCount} Ruang Tersedia
+                        </span>
                     </div>
-                    <span className="self-start sm:self-auto text-xs font-semibold px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/60">
-                        ● {availableCount} Ruang Tersedia
-                    </span>
                 </div>
 
                 {/* Filter */}

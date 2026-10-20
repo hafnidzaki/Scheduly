@@ -15,9 +15,24 @@ export default function MyBookings({ bookings = [] }) {
             <Head title="Riwayat Peminjaman" />
 
             <div className="space-y-6 font-sans">
-                <div className="border-b border-slate-200/80 pb-4">
-                    <h1 className="text-xl font-bold tracking-tight text-slate-900">Riwayat Peminjaman Saya</h1>
-                    <p className="mt-0.5 text-xs text-slate-500">Pantau status peminjaman ruang kelas Anda.</p>
+                {/* --- HERO BANNER (DITAMBAHKAN) --- */}
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 p-8 text-white shadow-lg">
+                    {/* Aksen Lingkaran Transparan di Kanan */}
+                    <div className="absolute -right-10 -bottom-10 h-48 w-48 rounded-full border-[16px] border-white/10 pointer-events-none" />
+                    <div className="absolute -right-4 -bottom-4 h-32 w-32 rounded-full border-[12px] border-white/10 pointer-events-none" />
+
+                    <div className="relative z-10">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold tracking-wider text-emerald-300 backdrop-blur-md uppercase mb-3">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                            Riwayat Saya
+                        </span>
+                        <h1 className="text-3xl font-bold tracking-tight text-white">
+                            Riwayat Peminjaman Saya
+                        </h1>
+                        <p className="mt-2 text-sm text-indigo-100/90">
+                            Pantau status peminjaman ruang kelas Anda.
+                        </p>
+                    </div>
                 </div>
 
                 <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
