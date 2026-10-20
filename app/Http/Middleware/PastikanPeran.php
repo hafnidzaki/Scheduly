@@ -8,16 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PastikanPeran
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     * @param  string  ...$roles
-     */
-    public function handle(Request $request, Closure $next, ...$roles): Response
+    public function handle(Request $request, Closure $next, string ...$peran): Response
     {
-        if (! $request->user() || ! in_array($request->user()->role, $roles)) {
-            abort(403, 'Akses Ditolak: Anda tidak memiliki izin untuk mengakses halaman ini.');
+        if (! in_array($request->user()?->role, $peran)) {
+            abort(403, 'Akses Ditolak: Peran akun Anda tidak memiliki izin untuk mengakses halaman ini.');
         }
 
         return $next($request);

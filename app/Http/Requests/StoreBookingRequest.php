@@ -6,18 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBookingRequest extends FormRequest
 {
-    /**
-     * Tentukan apakah pengguna diizinkan mengajukan request ini.
-     * Otorisasi ketat: Hanya pengguna berstatus peran 'user' yang boleh membuat peminjaman.
-     */
     public function authorize(): bool
     {
         return $this->user() && $this->user()->role === 'user';
     }
 
-    /**
-     * PRINSIP 4: Aturan validasi ketat di sisi server
-     */
     public function rules(): array
     {
         return [
@@ -29,9 +22,6 @@ class StoreBookingRequest extends FormRequest
         ];
     }
 
-    /**
-     * Pesan kustom untuk error validasi berbahasa Indonesia.
-     */
     public function messages(): array
     {
         return [
