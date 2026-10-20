@@ -41,13 +41,14 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'user',
+            'role' => 'user', // Memastikan akun baru otomatis menjadi user biasa
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Hapus baris Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Ubah arah redirect ke route login
+        return redirect(route('login'))->with('status', 'Akun berhasil dibuat, silakan login.');
     }
 }
